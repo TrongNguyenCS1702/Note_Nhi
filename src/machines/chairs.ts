@@ -135,7 +135,10 @@ export const chairsMachine = setup({
     startSpin: assign(({ context }) => beginSpin(context, [])),
     rerollSpin: assign(({ context }) => {
       markLogs(context.services, context.picks, 'skipped');
-      return beginSpin(context, context.picks.map((p) => p.studentId));
+      return beginSpin(
+        context,
+        context.picks.map((p) => p.studentId),
+      );
     }),
     absentSpin: assign(({ context }) => {
       const s = context.services;
@@ -268,7 +271,18 @@ export const chairsMachine = setup({
 });
 
 export type ChairsSnapshot = SnapshotFrom<typeof chairsMachine>;
-export type ChairsPhase = 'idle' | 'starting' | 'intro' | 'fast' | 'slow' | 'fakeout' | 'landed' | 'between' | 'revealing' | 'result' | 'exited';
+export type ChairsPhase =
+  | 'idle'
+  | 'starting'
+  | 'intro'
+  | 'fast'
+  | 'slow'
+  | 'fakeout'
+  | 'landed'
+  | 'between'
+  | 'revealing'
+  | 'result'
+  | 'exited';
 
 export const phaseOf = (s: ChairsSnapshot): ChairsPhase => s.value as ChairsPhase;
 
