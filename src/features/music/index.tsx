@@ -97,7 +97,8 @@ export function MusicScreen() {
         </div>
       </div>
       <p className="note">
-        Kéo cả loạt file .mp3 / .m4a không lời vào ô của nhóm. Chưa có bài nào thì app tự chơi giai điệu ngũ cung có sẵn.
+        Kéo cả loạt file .mp3 / .m4a không lời vào ô của nhóm. Chưa có bài nào thì app tự chơi giai điệu ngũ cung có
+        sẵn.
       </p>
 
       <div className="admin-grid">
@@ -111,11 +112,16 @@ export function MusicScreen() {
               onDragOver={(e) => e.dataTransfer.types.includes(TRACK_MIME) && e.preventDefault()}
               onDrop={onColumnDrop(mood)}
             >
-              <FileDrop accept={AUDIO_ACCEPT} multiple onFiles={(f) => void addFiles(mood, f)} disabled={busy !== null} className="admin-drop" aria-label={`Thêm nhạc ${title}`}>
+              <FileDrop
+                accept={AUDIO_ACCEPT}
+                multiple
+                onFiles={(f) => void addFiles(mood, f)}
+                disabled={busy !== null}
+                className="admin-drop"
+                aria-label={`Thêm nhạc ${title}`}
+              >
                 <strong>{busy === mood ? 'Đang lưu…' : title}</strong>
-                <span>
-                  {use} · thả file vào đây hoặc bấm để chọn
-                </span>
+                <span>{use} · thả file vào đây hoặc bấm để chọn</span>
               </FileDrop>
               <div className="admin-row" style={{ border: 0, padding: 0 }}>
                 <Pill sun>{list.length} bài</Pill>
@@ -129,7 +135,10 @@ export function MusicScreen() {
                     draggable
                     onDragStart={(e) => e.dataTransfer.setData(TRACK_MIME, t.id)}
                   >
-                    <Button aria-label={playing === t.id ? `Dừng ${t.title}` : `Nghe thử ${t.title}`} onClick={() => void preview(t)}>
+                    <Button
+                      aria-label={playing === t.id ? `Dừng ${t.title}` : `Nghe thử ${t.title}`}
+                      onClick={() => void preview(t)}
+                    >
                       {playing === t.id ? '■' : '▶'}
                     </Button>
                     <TitleField track={t} />
@@ -178,7 +187,11 @@ function TitleField({ track }: { track: TrackMetaRow }) {
 function DeleteButton({ label, onDelete }: { label: string; onDelete: () => void }) {
   const [armed, setArmed] = useState(false);
   return (
-    <Button aria-label={`Xoá ${label}`} onBlur={() => setArmed(false)} onClick={() => (armed ? onDelete() : setArmed(true))}>
+    <Button
+      aria-label={`Xoá ${label}`}
+      onBlur={() => setArmed(false)}
+      onClick={() => (armed ? onDelete() : setArmed(true))}
+    >
       {armed ? 'Xoá thật?' : '✕'}
     </Button>
   );
