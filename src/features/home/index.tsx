@@ -1,3 +1,3 @@
-import { HomePlaceholder } from '@/app/placeholders';
-// Replaced by the home feature (SPEC 3.0).
-export const HomeScreen = HomePlaceholder;
+// Trang chủ: chọn lớp (SPEC 3.0).
+export { HomeScreen } from './HomeScreen';
+export { openClassFlow, routeAfterCheck, classLabel, formatClock, type ClassRef } from './openClassFlow';
