@@ -1,0 +1,81 @@
+/* Admin screens (Quản lý lớp, Nhạc nền, Cài đặt): no mockup, same sticker vocabulary. */
+@layer components {
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+  .admin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .admin-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 8px 10px;
+    border: var(--bw) solid var(--ink);
+    border-radius: 14px;
+    background: var(--paper);
+  }
+  .admin-row.warn {
+    background: var(--pink);
+  }
+  .admin-row.muted {
+    opacity: 0.6;
+  }
+  .admin-row .grow {
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+  .admin-row .text-input {
+    font-size: 17px;
+    padding: 8px 10px;
+  }
+  .admin-row small {
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .admin-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .admin-chips .btn[aria-pressed='true'] {
+    background: var(--sun);
+  }
+  .admin-textarea {
+    min-height: 200px;
+    resize: vertical;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .admin-warn {
+    color: var(--ink);
+    background: var(--pink);
+    border: var(--bw) solid var(--ink);
+    border-radius: 14px;
+    padding: 8px 12px;
+    font-weight: 800;
+  }
+  .admin-section-title {
+    font: 800 clamp(24px, 2.4vw, 32px) / 1.1 var(--f-display);
+  }
+  .drop.admin-drop {
+    min-height: 140px;
+  }
+  .drop.admin-drop strong {
+    font-size: clamp(26px, 2.6vw, 38px);
+  }
+  .screen.dragging {
+    outline: 5px dashed var(--ink);
+    outline-offset: 8px;
+    border-radius: 30px;
+  }
+}
