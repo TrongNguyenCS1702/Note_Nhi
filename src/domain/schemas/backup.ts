@@ -20,18 +20,18 @@ export const backupFormatSchema = z.enum(['lnv-backup', 'lnv-setup']);
 export type BackupFormat = z.infer<typeof backupFormatSchema>;
 
 // In a setup package rows do not carry the helper's ownerId; it is re-assigned on import.
-const portable = <S extends z.ZodObject>(s: S) => s.extend({ ownerId: idSchema.optional() });
+const portableOwner = { ownerId: idSchema.optional() };
 
 export const backupTablesSchema = z.object({
-  classes: z.array(portable(classSchema)).default([]),
-  students: z.array(portable(studentSchema)).default([]),
-  sessions: z.array(portable(sessionSchema)).default([]),
-  scheduleSlots: z.array(portable(scheduleSlotSchema)).default([]),
-  attendance: z.array(portable(attendanceSchema)).default([]),
-  callLogs: z.array(portable(callLogSchema)).default([]),
-  funChallenges: z.array(portable(funChallengeSchema)).default([]),
-  userPrefs: z.array(portable(userPrefsSchema)).default([]),
-  tracks: z.array(portable(trackMetaSchema)).default([]),
+  classes: z.array(classSchema.extend(portableOwner)).default([]),
+  students: z.array(studentSchema.extend(portableOwner)).default([]),
+  sessions: z.array(sessionSchema.extend(portableOwner)).default([]),
+  scheduleSlots: z.array(scheduleSlotSchema.extend(portableOwner)).default([]),
+  attendance: z.array(attendanceSchema.extend(portableOwner)).default([]),
+  callLogs: z.array(callLogSchema.extend(portableOwner)).default([]),
+  funChallenges: z.array(funChallengeSchema.extend(portableOwner)).default([]),
+  userPrefs: z.array(userPrefsSchema.extend(portableOwner)).default([]),
+  tracks: z.array(trackMetaSchema.extend(portableOwner)).default([]),
   errorLogs: z.array(errorLogSchema).default([]),
 });
 export type BackupTables = z.infer<typeof backupTablesSchema>;
