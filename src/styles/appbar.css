@@ -1,0 +1,43 @@
+/* App bar: brand + class pill + mute/fullscreen buttons. */
+@layer components {
+  .appbar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-block: 14px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    max-width: 1680px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 800 28px/1 var(--f-display);
+  }
+  .brand .dot {
+    width: 42px;
+    height: 42px;
+  }
+  .brand em {
+    font-style: normal;
+    color: var(--paper);
+    background: var(--pink);
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 0 8px 2px;
+    transform: rotate(-3deg);
+    display: inline-block;
+  }
+  .appbar-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}

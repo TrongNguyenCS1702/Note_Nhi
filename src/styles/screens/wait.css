@@ -1,0 +1,63 @@
+/* Màn hình chờ: banner, countdown ring. Add .final / .paused on .wait-run. */
+@layer components {
+  .wait-run {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    text-align: center;
+  }
+  .banner {
+    font: 800 clamp(36px, 5vw, 76px) / 1.05 var(--f-display);
+    max-width: 20ch;
+    background: var(--pink);
+    border: 5px solid var(--ink);
+    border-radius: 26px;
+    padding: 10px 34px 16px;
+    box-shadow: 0 8px 0 var(--ink);
+    transform: rotate(-1.5deg);
+  }
+  .wait-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 4vw, 56px);
+    flex-wrap: wrap;
+  }
+  .ring {
+    position: relative;
+    width: min(70vw, 420px);
+    aspect-ratio: 1;
+    max-width: 100%;
+  }
+  .ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .ring .t {
+    position: absolute;
+    inset: 16%;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 5px solid var(--ink);
+    display: grid;
+    place-items: center;
+    font: 800 clamp(60px, 8vw, 118px) / 1 var(--f-display);
+    font-variant-numeric: tabular-nums;
+  }
+  .wait-run.final .t {
+    background: var(--sun);
+    font-size: clamp(110px, 14vw, 200px);
+    animation: pulse 1s infinite;
+  }
+  .wait-run.paused .t {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}

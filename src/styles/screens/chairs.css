@@ -1,0 +1,156 @@
+/* Ghế âm nhạc: effects layered over #chair-grid inside .grid-wrap, method banner, result overlay. */
+@layer components {
+  .rider {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    pointer-events: none;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.3, 1.3, 0.5, 1);
+  }
+
+  /* đèn sân khấu — set --x/--y/--r inline */
+  .spot {
+    position: absolute;
+    inset: -24px;
+    z-index: 4;
+    pointer-events: none;
+    border-radius: 28px;
+    background: radial-gradient(
+      circle at var(--x, 50%) var(--y, 50%),
+      transparent 0,
+      transparent calc(var(--r, 120px) - 8px),
+      rgba(255, 217, 90, 0.55) var(--r, 120px),
+      rgba(25, 20, 55, 0.8) calc(var(--r, 120px) + 8px)
+    );
+  }
+
+  /* bóng nảy */
+  .ball {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
+    z-index: 6;
+    pointer-events: none;
+    border-radius: 50%;
+    background: var(--coral);
+    border: 4px solid var(--ink);
+    display: grid;
+    place-items: center;
+    font: 900 22px/1 var(--f-display);
+    color: var(--paper);
+    box-shadow: inset -6px -6px 0 rgba(43, 35, 80, 0.18);
+  }
+
+  /* máy gắp thú — cable length via --len */
+  .claw {
+    position: absolute;
+    left: 0;
+    top: -34px;
+    width: 70px;
+    z-index: 6;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .claw .cable {
+    width: 6px;
+    height: var(--len, 6px);
+    background: var(--ink);
+    border-radius: 3px;
+  }
+  .claw svg {
+    display: block;
+    width: 70px;
+    height: 56px;
+    margin-top: -2px;
+    overflow: visible;
+  }
+  .claw .arm {
+    transition: transform 0.3s;
+    transform-box: view-box;
+  }
+  .claw .arm-l {
+    transform-origin: 30px 12px;
+    transform: rotate(14deg);
+  }
+  .claw .arm-r {
+    transform-origin: 40px 12px;
+    transform: rotate(-14deg);
+  }
+  .claw.closed .arm-l {
+    transform: rotate(-8deg);
+  }
+  .claw.closed .arm-r {
+    transform: rotate(8deg);
+  }
+
+  /* bảng tên kiểu quay */
+  .method-banner {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    translate: -50% -50%;
+    z-index: 8;
+    pointer-events: none;
+    white-space: nowrap;
+    font: 900 clamp(40px, 6vw, 88px) / 1.1 var(--f-display);
+    background: var(--paper);
+    border: 5px solid var(--ink);
+    border-radius: 28px;
+    padding: 10px 36px 14px;
+    box-shadow: 0 10px 0 var(--ink);
+  }
+  .method-banner.pop {
+    background: var(--sun);
+    animation: popin 0.4s cubic-bezier(0.2, 1.5, 0.4, 1);
+  }
+
+  /* result overlay */
+  .result-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 40px);
+    flex-wrap: wrap;
+  }
+  .result-names {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .result-names span {
+    font: 900 clamp(60px, 9vw, 150px) / 1.15 var(--f-display);
+    letter-spacing: -0.02em;
+    padding: 6px 34px 10px;
+    background: var(--sun);
+    border: 5px solid var(--ink);
+    border-radius: 30px;
+    box-shadow: 0 10px 0 var(--ink);
+    animation: zoom 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  }
+  .result-names span:nth-child(2) {
+    background: var(--pink);
+    animation-delay: 0.12s;
+  }
+  .result-stage .mascot {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0.2) rotate(-12deg);
+    opacity: 0;
+  }
+}

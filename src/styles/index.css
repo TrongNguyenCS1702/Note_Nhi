@@ -4,6 +4,30 @@
 @import '@fontsource/nunito/800.css';
 @import '@fontsource/nunito/900.css';
 
+/* Design system ported 1:1 from mockup/lop-nhac-vui-mockup.html (class names unchanged). */
+@import './base.css';
+@import './layout.css';
+@import './sticker.css';
+@import './controls.css';
+@import './appbar.css';
+@import './mascot.css';
+@import './names.css';
+@import './overlay.css';
+@import './panel.css';
+@import './screens/welcome.css';
+@import './screens/check.css';
+@import './screens/home.css';
+@import './screens/launcher.css';
+@import './screens/chairs.css';
+@import './screens/silence.css';
+@import './screens/wait.css';
+@import './misc.css';
+
+/* The mockup/docs are not app source; and `.ring` is our countdown ring, not Tailwind's ring utility. */
+@source not '../../mockup';
+@source not '../../docs';
+@source not inline('ring');
+
 /* Design tokens — lấy nguyên từ mockup đã duyệt (SPEC 3.9). Giữ tên biến giống mockup để port CSS dễ. */
 :root {
   --bg: #e8f4ff;
@@ -38,18 +62,4 @@
   --color-coral: var(--coral);
   --font-display: var(--f-display);
   --font-body: var(--f-body);
-}
-
-[hidden] {
-  display: none !important;
-}
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--f-body);
-  font-size: 17px;
-  line-height: 1.5;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
 }
