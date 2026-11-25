@@ -1,14 +1,14 @@
 import { expect, test, type Page } from '@playwright/test';
 
-// Seeds IndexedDB directly (the app's Dexie DB "lop-nhac-vui") with 21 classes × 40 students,
+// Seeds IndexedDB directly (the app's Dexie DB "note-nhi") with 21 classes × 40 students,
 // marks the TV check as done, then reloads so the app starts on the home screen.
 async function seed(page: Page) {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Lớp Nhạc Vui' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Note Nhí' })).toBeVisible();
   await page.evaluate(async () => {
     const open = () =>
       new Promise<IDBDatabase>((resolve, reject) => {
-        const req = indexedDB.open('lop-nhac-vui');
+        const req = indexedDB.open('note-nhi');
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
       });

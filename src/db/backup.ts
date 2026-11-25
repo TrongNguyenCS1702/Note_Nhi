@@ -43,10 +43,10 @@ export const extForMime = (mime: string): string => EXT_BY_MIME[mime.toLowerCase
 /** Path of a track's audio inside the zip. */
 export const musicPath = (t: Pick<TrackMetaRow, 'fileId' | 'mimeType'>) => `${MUSIC_DIR}${t.fileId}.${extForMime(t.mimeType)}`;
 
-/** 'lop-nhac-vui-backup.zip' (auto backup) or 'lop-nhac-vui-<YYYY-MM-DD>.zip' (setup package / manual export). */
+/** 'note-nhi-backup.zip' (auto backup) or 'note-nhi-<YYYY-MM-DD>.zip' (setup package / manual export). */
 export function backupFileName(format: BackupFormat, now = Date.now(), opts: { dated?: boolean } = {}): string {
-  if (format === 'lnv-backup' && !opts.dated) return 'lop-nhac-vui-backup.zip';
-  return `lop-nhac-vui-${localDateKey(now)}.zip`;
+  if (format === 'note-nhi-backup' && !opts.dated) return 'note-nhi-backup.zip';
+  return `note-nhi-${localDateKey(now)}.zip`;
 }
 
 // ---------------------------------------------------------------------------
@@ -54,8 +54,8 @@ export function backupFileName(format: BackupFormat, now = Date.now(), opts: { d
 // ---------------------------------------------------------------------------
 
 export interface ExportOptions {
-  /** 'lnv-backup' (default): everything incl. history and soft-deleted rows.
-   *  'lnv-setup': live rows only, no history, no ownerId. */
+  /** 'note-nhi-backup' (default): everything incl. history and soft-deleted rows.
+   *  'note-nhi-setup': live rows only, no history, no ownerId. */
   format?: BackupFormat;
   /** Include music files. Default: true for setup packages, false for backups. */
   includeMusic?: boolean;
@@ -64,9 +64,9 @@ export interface ExportOptions {
 
 /** Build the data.json payload (SPEC 5.3). */
 export async function exportData(opts: ExportOptions = {}): Promise<BackupData> {
-  const format = opts.format ?? 'lnv-backup';
+  const format = opts.format ?? 'note-nhi-backup';
   const now = opts.now ?? Date.now();
-  const setup = format === 'lnv-setup';
+  const setup = format === 'note-nhi-setup';
   const history = new Set<string>(HISTORY_TABLES);
 
   const tables = await db.transaction('r', db.tables, async () => {
@@ -93,8 +93,8 @@ export async function exportData(opts: ExportOptions = {}): Promise<BackupData> 
 
 /** Build the .zip (data.json + optional music/<fileId>.<ext>). */
 export async function exportZip(opts: ExportOptions = {}): Promise<Uint8Array> {
-  const format = opts.format ?? 'lnv-backup';
-  const includeMusic = opts.includeMusic ?? format === 'lnv-setup';
+  const format = opts.format ?? 'note-nhi-backup';
+  const includeMusic = opts.includeMusic ?? format === 'note-nhi-setup';
   const data = await exportData({ ...opts, format });
   const files: Zippable = { [DATA_FILE]: [strToU8(JSON.stringify(data)), { level: 6 }] };
   if (includeMusic) {
@@ -181,7 +181,7 @@ export interface ImportOptions {
 /** Import a backup or setup package in a single transaction. Validates everything first. */
 export async function importPackage(input: Blob | ArrayBuffer | Uint8Array, opts: ImportOptions = {}): Promise<ImportSummary> {
   const { data, music } = await readPackage(input);
-  const mode = opts.mode ?? (data.format === 'lnv-backup' ? 'replace' : 'merge');
+  const mode = opts.mode ?? (data.format === 'note-nhi-backup' ? 'replace' : 'merge');
   const adoptOwner = mode === 'replace' && data.ownerId !== undefined;
   const ownerId = adoptOwner ? data.ownerId! : await getLocalOwnerId();
 

@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: 'prompt',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'Lớp Nhạc Vui',
-        short_name: 'Nhạc Vui',
+        name: 'Note Nhí',
+        short_name: 'Note Nhí',
         lang: 'vi',
         description: 'Trò chơi cho tiết Âm nhạc tiểu học: ghế âm nhạc, thử thách im lặng, màn hình chờ.',
         theme_color: '#ffd95a',

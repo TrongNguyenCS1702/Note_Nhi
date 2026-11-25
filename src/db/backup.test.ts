@@ -70,7 +70,7 @@ describe('backup', () => {
     expect(await db.meta.count()).toBe(0);
 
     const summary = await importPackage(zip);
-    expect(summary).toEqual({ format: 'lnv-backup', classes: 2, students: 2, tracks: 1, missingMusic: 0 });
+    expect(summary).toEqual({ format: 'note-nhi-backup', classes: 2, students: 2, tracks: 1, missingMusic: 0 });
     expect(await snapshot()).toEqual(before);
     expect(await getLocalOwnerId()).toBe(owner);
     expect([...(await absentStudentIds(sessionId))]).toEqual([binhId]);
@@ -104,11 +104,11 @@ describe('backup', () => {
 describe('setup package', () => {
   it('excludes history, deleted rows and ownerId; always carries music', async () => {
     await seed();
-    const zip = await exportZip({ format: 'lnv-setup', now: NOW });
+    const zip = await exportZip({ format: 'note-nhi-setup', now: NOW });
     const files = unzipSync(zip);
     expect(Object.keys(files)).toEqual(['data.json', expect.stringMatching(/^music\/[0-9a-f-]+\.mp3$/)]);
     const data = JSON.parse(strFromU8(files['data.json']!));
-    expect(data.format).toBe('lnv-setup');
+    expect(data.format).toBe('note-nhi-setup');
     expect(data.ownerId).toBeUndefined();
     expect(data.tables.sessions).toEqual([]);
     expect(data.tables.attendance).toEqual([]);
@@ -120,13 +120,13 @@ describe('setup package', () => {
   it('import re-assigns ownerId to the local owner (helper machine → teacher machine)', async () => {
     await seed();
     const helperOwner = await getLocalOwnerId();
-    const zip = await exportZip({ format: 'lnv-setup', now: NOW });
+    const zip = await exportZip({ format: 'note-nhi-setup', now: NOW });
     await wipeAll();
     const teacherOwner = await getLocalOwnerId();
     expect(teacherOwner).not.toBe(helperOwner);
 
     const summary = await importPackage(zip);
-    expect(summary).toEqual({ format: 'lnv-setup', classes: 2, students: 2, tracks: 1, missingMusic: 0 });
+    expect(summary).toEqual({ format: 'note-nhi-setup', classes: 2, students: 2, tracks: 1, missingMusic: 0 });
     const s = await snapshot();
     const owners = new Set([...s.classes, ...s.students, ...s.scheduleSlots, ...s.funChallenges, ...s.userPrefs, ...s.tracks].map((r) => r.ownerId));
     expect([...owners]).toEqual([teacherOwner]);
@@ -166,8 +166,8 @@ describe('validation', () => {
   });
 
   it('file names', () => {
-    expect(backupFileName('lnv-backup', NOW)).toBe('lop-nhac-vui-backup.zip');
-    expect(backupFileName('lnv-setup', NOW)).toBe('lop-nhac-vui-2026-11-25.zip');
-    expect(backupFileName('lnv-backup', NOW, { dated: true })).toBe('lop-nhac-vui-2026-11-25.zip');
+    expect(backupFileName('note-nhi-backup', NOW)).toBe('note-nhi-backup.zip');
+    expect(backupFileName('note-nhi-setup', NOW)).toBe('note-nhi-2026-11-25.zip');
+    expect(backupFileName('note-nhi-backup', NOW, { dated: true })).toBe('note-nhi-2026-11-25.zip');
   });
 });

@@ -9,6 +9,6 @@ test-results/
 .DS_Store
 # never commit real student data or music
 *.lnv.zip
-lop-nhac-vui-*.zip
+note-nhi-*.zip
 private-data/
 .claude/

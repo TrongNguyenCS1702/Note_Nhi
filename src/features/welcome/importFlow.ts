@@ -14,7 +14,7 @@ const isZipName = (name: string) => /\.zip$/i.test(name);
 /** Import the setup package (or a backup) the supporter sent. Never throws. */
 export async function importSetupFile(file: Blob & { name?: string }): Promise<PackageImportResult> {
   if (file.name && !isZipName(file.name)) {
-    return { ok: false, error: `"${file.name}" không phải gói cài đặt. Hãy chọn file lop-nhac-vui-….zip.` };
+    return { ok: false, error: `"${file.name}" không phải gói cài đặt. Hãy chọn file note-nhi-….zip.` };
   }
   try {
     const summary = await importPackage(file);

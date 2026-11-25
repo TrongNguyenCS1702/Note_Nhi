@@ -1,4 +1,4 @@
-# Lớp Nhạc Vui — Spec v1.1
+# Note Nhí — Spec v1.1
 
 > Tên app tạm đặt, có thể đổi.
 > Phần A dành cho thầy/cô đọc và góp ý (khoảng 5 phút). Phần B là chi tiết kỹ thuật để build.
@@ -267,7 +267,7 @@ Thử thách vui mặc định: *Cả lớp hát lại 1 câu bài vừa học �
 - Danh sách **thử thách vui** (thêm/sửa/xoá).
 - **Thời khoá biểu** (không bắt buộc): bảng thứ × giờ bắt đầu × lớp, dùng cho lớp gợi ý.
 - **Sao lưu tự động**: chọn **1 thư mục** một lần duy nhất (File System Access API, handle lưu trong IndexedDB).
-  - App ghi file `lop-nhac-vui-backup.zip` sau mỗi buổi dạy (khi về trang chủ), tối đa 1 lần/ngày, giữ 7 bản gần nhất.
+  - App ghi file `note-nhi-backup.zip` sau mỗi buổi dạy (khi về trang chủ), tối đa 1 lần/ngày, giữ 7 bản gần nhất.
   - Nếu thư mục đó nằm trong **Google Drive / OneDrive trên máy** thì backup tự lên cloud mà app không cần đăng nhập.
   - Chrome hỏi lại quyền thì hiện nút "Cho phép sao lưu" ở trang chủ, không chặn việc dạy.
   - Chưa chọn thư mục thì cứ 14 ngày nhắc 1 lần ở trang chủ.
@@ -325,7 +325,7 @@ Thử thách vui mặc định: *Cả lớp hát lại 1 câu bài vừa học �
 1. Nhận từ giáo viên: danh sách lớp (file gì cũng được; ảnh hay Word thì gõ hoặc dán lại thành text), thời khoá biểu (nếu có), mp3 (nếu có).
 2. Mở app → **Quản lý lớp**: kéo file vào → xem trước, sửa tên đáng ngờ → Xác nhận (3.1).
 3. **Cài đặt → Thời khoá biểu** (nếu có). **Nhạc nền**: thả file vào 2 ô.
-4. **Cài đặt → Xuất gói cài đặt** → được file `lop-nhac-vui-<ngày>.zip` (dữ liệu + nhạc).
+4. **Cài đặt → Xuất gói cài đặt** → được file `note-nhi-<ngày>.zip` (dữ liệu + nhạc).
 5. Gửi gói qua Zalo / USB / làm qua phần mềm điều khiển máy từ xa.
 6. **Xoá dữ liệu ở máy mình** (Cài đặt → Xoá toàn bộ dữ liệu) và xoá file đã nhận trong Zalo. Đây là dữ liệu cá nhân của trẻ em, không giữ lại.
 
@@ -408,9 +408,9 @@ Meta          { key, value }                                             // sche
 - **UI và game không gọi Dexie trực tiếp.** Mọi đọc/ghi đi qua `db/repositories` (vd `classRepo`, `callLogRepo`). Repository tự gán `id`, `ownerId`, `createdAt`, `updatedAt`.
 - Mọi kiểu dữ liệu khai báo bằng **Zod schema** trong `domain/schemas`. Đây là nguồn chuẩn duy nhất: sinh type TS, validate khi nhập backup, và sau này dùng chung cho API.
 - **File backup = đúng định dạng dữ liệu sẽ gửi lên server.** Là 1 file `.zip` gồm:
-  - `data.json`: `{ format: 'lnv-backup' | 'lnv-setup', schemaVersion, exportedAt, ownerId, tables: { classes: [...], students: [...], ... } }`.
+  - `data.json`: `{ format: 'note-nhi-backup' | 'note-nhi-setup', schemaVersion, exportedAt, ownerId, tables: { classes: [...], students: [...], ... } }`.
   - `music/<fileId>.<ext>` (có hay không tuỳ lựa chọn).
-  - Gói cài đặt (`lnv-setup`) dùng chung định dạng. Khác ở chỗ: không mang `ownerId`, không có lịch sử (`Session`, `Attendance`, `CallLog`).
+  - Gói cài đặt (`note-nhi-setup`) dùng chung định dạng. Khác ở chỗ: không mang `ownerId`, không có lịch sử (`Session`, `Attendance`, `CallLog`).
 
 ### 5.4 Lộ trình khi cần server (chưa làm ở v1)
 1. **Sao lưu lên Google Drive của chính giáo viên.** Client gọi thẳng API của Drive, chưa cần server riêng.

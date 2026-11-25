@@ -1,4 +1,4 @@
-# Lớp Nhạc Vui 🎵
+# Note Nhí 🎵
 
 An **offline-first PWA** that makes primary-school music lessons more fun. Runs on the teacher's laptop, projected to the classroom TV, driven by the keyboard.
 

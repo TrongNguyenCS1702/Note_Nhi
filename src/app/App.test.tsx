@@ -25,7 +25,7 @@ const press = (key: string) => fireEvent.keyDown(document.body, { key });
 describe('App', () => {
   it('renders the app name', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: 'Lớp Nhạc Vui' })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Note Nhí' })).toBeTruthy();
     expect(screen.getByRole('heading', { name: /vào lớp nào nhỉ/ })).toBeTruthy();
   });
 

@@ -44,24 +44,24 @@ describe('backup data schema', () => {
   const cls = { ...base(), name: '3A', grade: 3, schoolYear: '2026-2027', lastUsedAt: null };
 
   it('fills missing tables with []', () => {
-    const d = backupDataSchema.parse({ format: 'lnv-backup', schemaVersion: 1, exportedAt: 1, ownerId: uuid(), tables: { classes: [cls] } });
+    const d = backupDataSchema.parse({ format: 'note-nhi-backup', schemaVersion: 1, exportedAt: 1, ownerId: uuid(), tables: { classes: [cls] } });
     expect(d.tables.students).toEqual([]);
     expect(d.tables.classes).toHaveLength(1);
   });
 
   it('backup needs ownerId; setup does not and rows may omit ownerId', () => {
-    expect(backupDataSchema.safeParse({ format: 'lnv-backup', schemaVersion: 1, exportedAt: 1, tables: {} }).success).toBe(false);
+    expect(backupDataSchema.safeParse({ format: 'note-nhi-backup', schemaVersion: 1, exportedAt: 1, tables: {} }).success).toBe(false);
     const { ownerId: _o, ...noOwner } = cls;
-    expect(backupDataSchema.safeParse({ format: 'lnv-setup', schemaVersion: 1, exportedAt: 1, tables: { classes: [noOwner] } }).success).toBe(true);
+    expect(backupDataSchema.safeParse({ format: 'note-nhi-setup', schemaVersion: 1, exportedAt: 1, tables: { classes: [noOwner] } }).success).toBe(true);
   });
 
   it('setup package may not contain history', () => {
     const log = { ...base(), sessionId: uuid(), classId: uuid(), studentId: uuid(), game: 'chairs', method: 'chase', status: 'called', at: 1 };
-    expect(backupDataSchema.safeParse({ format: 'lnv-setup', schemaVersion: 1, exportedAt: 1, tables: { callLogs: [log] } }).success).toBe(false);
+    expect(backupDataSchema.safeParse({ format: 'note-nhi-setup', schemaVersion: 1, exportedAt: 1, tables: { callLogs: [log] } }).success).toBe(false);
   });
 
   it('rejects newer schema versions and unknown formats', () => {
-    expect(backupDataSchema.safeParse({ format: 'lnv-setup', schemaVersion: BACKUP_SCHEMA_VERSION + 1, exportedAt: 1, tables: {} }).success).toBe(false);
+    expect(backupDataSchema.safeParse({ format: 'note-nhi-setup', schemaVersion: BACKUP_SCHEMA_VERSION + 1, exportedAt: 1, tables: {} }).success).toBe(false);
     expect(backupDataSchema.safeParse({ format: 'zip', schemaVersion: 1, exportedAt: 1, tables: {} }).success).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-# Lớp Nhạc Vui — quy ước cho người & agent
+# Note Nhí — quy ước cho người & agent
 
 Nguồn chuẩn: `docs/SPEC_v1.md` (spec) và `mockup/lop-nhac-vui-mockup.html` (giao diện/luồng/âm thanh). **Lệch nhau thì mockup thắng**, trừ các mục đánh dấu **[Vận hành]** trong spec.
 
