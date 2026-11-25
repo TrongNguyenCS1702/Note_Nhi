@@ -4,7 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite';
 
+// GitHub Pages serves the app under /Note_Nhi/; local dev, preview and e2e stay at /.
 export default defineConfig({
+  base: process.env.GITHUB_PAGES ? '/Note_Nhi/' : '/',
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   plugins: [
     react(),
