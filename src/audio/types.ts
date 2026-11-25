@@ -28,3 +28,35 @@ export interface MicHandle {
   close(): void;
   readonly closed: boolean;
 }
+
+/** What actually started: a user track, the synth fallback, or nothing (superseded / no audio). */
+export type MusicSource = 'track' | 'synth' | 'none';
+
+export interface StopMusicOptions {
+  /** Fade out seconds. 0 / omitted = abrupt cut (musical chairs). Wait screen uses 1.5. */
+  fadeSec?: number;
+}
+
+/**
+ * Everything screens/machines need from the audio layer. Use the real `audio` from
+ * `@/audio` in the app and `createFakeAudio()` from `@/audio/fake` in tests.
+ */
+export interface AudioPort {
+  /** Create/resume the AudioContext. Call from a key/click handler (autoplay policy). */
+  ensure(): void;
+  /** Random track of `mood` from `tracks`, else the generative synth loop. */
+  startMusic(mood: Mood, tracks?: readonly Blob[]): Promise<MusicSource>;
+  stopMusic(opts?: StopMusicOptions): void;
+  sfx(name: SfxName): void;
+  /** Slow-down step note `i` (pentatonic, up then down). */
+  step(i: number): void;
+  /** Suspense drum roll. */
+  roll(durationSec: number): void;
+  getVolume(): number;
+  /** Clamped to 0.1–1; returns the applied value. */
+  setVolume(v: number): number;
+  isMuted(): boolean;
+  setMuted(muted: boolean): void;
+  /** Rejects with `MicError`. */
+  openMic(deviceId?: string): Promise<MicHandle>;
+}

@@ -4,17 +4,11 @@
 import { ensureAudio } from './context';
 import { startLoop, stopLoop } from './synth';
 import * as trackPlayer from './trackPlayer';
-import type { Mood } from './types';
+import type { Mood, MusicSource, StopMusicOptions } from './types';
+
+export type { MusicSource, StopMusicOptions };
 
 export type Rng = () => number;
-
-/** What actually started: a user track, the synth fallback, or nothing (superseded / no audio). */
-export type MusicSource = 'track' | 'synth' | 'none';
-
-export interface StopMusicOptions {
-  /** Fade out seconds. 0 / omitted = abrupt cut (musical chairs). Wait screen uses 1.5. */
-  fadeSec?: number;
-}
 
 let generation = 0;
 
