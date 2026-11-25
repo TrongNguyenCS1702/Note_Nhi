@@ -24,7 +24,9 @@ const press = (key: string) => act(() => void fireEvent.keyDown(document.body, {
 const typeKeys = (s: string) => [...s].forEach((k) => press(k));
 
 async function seed() {
-  const { classIds } = await importRoster(parseRosterText('Lớp 3A\nNguyễn Văn An\nTrần Thị Bình\nLớp 3B\nLê Văn Cường\nLớp 5C\nPhạm Thị Dung'));
+  const { classIds } = await importRoster(
+    parseRosterText('Lớp 3A\nNguyễn Văn An\nTrần Thị Bình\nLớp 3B\nLê Văn Cường\nLớp 5C\nPhạm Thị Dung'),
+  );
   return { a3: classIds[0]!, b3: classIds[1]!, c5: classIds[2]! };
 }
 

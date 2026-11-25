@@ -133,7 +133,13 @@ export function HomeScreen() {
           <span className="label">Lớp vừa dạy</span>
           <div className="chips">
             {recent.map((c) => (
-              <button key={c.id} type="button" className="chip stk" style={colorVar(gradeColor(c.grade))} onClick={() => open(c)}>
+              <button
+                key={c.id}
+                type="button"
+                className="chip stk"
+                style={colorVar(gradeColor(c.grade))}
+                onClick={() => open(c)}
+              >
                 {c.name}
               </button>
             ))}
