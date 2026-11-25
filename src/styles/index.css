@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+@import '@fontsource/nunito/600.css';
+@import '@fontsource/nunito/700.css';
+@import '@fontsource/nunito/800.css';
+@import '@fontsource/nunito/900.css';
+
+/* Design tokens — lấy nguyên từ mockup đã duyệt (SPEC 3.9). Giữ tên biến giống mockup để port CSS dễ. */
+:root {
+  --bg: #e8f4ff;
+  --paper: #ffffff;
+  --ink: #2b2350;
+  --ink-soft: #5f5888;
+  --sun: #ffd95a;
+  --pink: #ffaccb;
+  --mint: #86e6bd;
+  --sky: #95d8ff;
+  --orange: #ffc17e;
+  --lilac: #cbbcff;
+  --coral: #ff6b6b;
+  --scrim: rgba(43, 35, 80, 0.55);
+  --f-display: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --f-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --bw: 3px;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-sun: var(--sun);
+  --color-pink: var(--pink);
+  --color-mint: var(--mint);
+  --color-sky: var(--sky);
+  --color-orange: var(--orange);
+  --color-lilac: var(--lilac);
+  --color-coral: var(--coral);
+  --font-display: var(--f-display);
+  --font-body: var(--f-body);
+}
+
+[hidden] {
+  display: none !important;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
