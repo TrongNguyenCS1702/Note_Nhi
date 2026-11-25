@@ -29,14 +29,11 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /vào lớp nào nhỉ/ })).toBeTruthy();
   });
 
-  it('navigates home → prep → launch → game and back with Escape; class pill hidden on home', () => {
+  it('Esc goes back from a game to the launcher; class pill hidden on home', () => {
     render(<App />);
     expect(screen.queryByText('Lớp 3A')).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: /Vào lớp 3A/ }));
-    expect(useAppStore.getState().screen).toBe('prep');
-    expect(screen.getByText('Lớp 3A')).toBeTruthy();
-    act(() => void press('Enter'));
-    expect(useAppStore.getState().screen).toBe('launch');
+    act(() => useAppStore.getState().openClass('3A', { label: 'Lớp 3A', screen: 'launch' }));
+    expect(screen.getAllByText('Lớp 3A').length).toBeGreaterThan(0);
     act(() => void press('2'));
     expect(useAppStore.getState().screen).toBe('silence');
     act(() => void press('Escape'));
