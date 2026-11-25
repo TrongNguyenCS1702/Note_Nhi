@@ -1,2 +1,2 @@
-import { ph } from '@/app/placeholders';
-export const PrepScreen = ph('Bạn nào vắng hôm nay?', 'Điểm danh', [{ to: 'launch', label: 'Vào tiết', kbd: 'Enter' }]);
+// Điểm danh (SPEC 3.2).
+export { PrepScreen } from './PrepScreen';
