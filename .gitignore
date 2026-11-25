@@ -11,3 +11,4 @@ test-results/
 *.lnv.zip
 lop-nhac-vui-*.zip
 private-data/
+.claude/
