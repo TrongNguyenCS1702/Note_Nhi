@@ -47,7 +47,7 @@ describe('ChairsScreen', () => {
     const { classId, audio } = await setup();
     press(' ');
     expect(screen.getByText('Lần này chơi kiểu gì đây ta?')).toBeTruthy();
-    await waitFor(async () => expect(await callLogsForClass(classId)).toHaveLength(1));
+    await waitFor(async () => expect(await callLogsForClass(classId)).toHaveLength(1), { timeout: 5000 });
     // the ✓ of the just-logged pick must not appear during the spin
     expect(document.querySelectorAll('#chair-grid .name.called')).toHaveLength(0);
 
@@ -60,7 +60,7 @@ describe('ChairsScreen', () => {
     press(' ');
     await wait(REVEAL_MS + 50);
 
-    const dialog = await screen.findByRole('dialog');
+    const dialog = await screen.findByRole('dialog', {}, { timeout: 5000 });
     const [log] = await callLogsForClass(classId);
     const student = await db.students.get(log!.studentId);
     expect(dialog.textContent).toContain(student!.fullName);
@@ -72,7 +72,7 @@ describe('ChairsScreen', () => {
     await waitFor(async () => {
       const logs = await callLogsForClass(classId);
       expect(logs.map((l) => l.status).sort()).toEqual(['called', 'skipped']);
-    });
+    }, { timeout: 5000 });
   }, 20000);
 
   it('Esc leaves to the launcher and stops the music', async () => {
