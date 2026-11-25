@@ -10,7 +10,7 @@ export function cleanText(s: string): string {
 export function fold(s: string): string {
   return cleanText(s)
     .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
+    .replace(/\p{M}/gu, '')
     .replace(/[đĐ]/g, 'd')
     .toLowerCase();
 }
