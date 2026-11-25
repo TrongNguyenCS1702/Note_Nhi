@@ -1,0 +1,20 @@
+/* Sticker primitive: thick ink border + hard shadow. Color via --c, hover tilt via --rot. */
+@layer components {
+  .stk {
+    background: var(--c, var(--paper));
+    border: var(--bw) solid var(--ink);
+    border-radius: 20px;
+    box-shadow: 0 4px 0 var(--ink);
+    transition:
+      transform 0.12s,
+      box-shadow 0.12s;
+  }
+  button.stk:hover {
+    transform: translateY(-3px) rotate(var(--rot, 0deg));
+    box-shadow: 0 7px 0 var(--ink);
+  }
+  button.stk:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--ink);
+  }
+}

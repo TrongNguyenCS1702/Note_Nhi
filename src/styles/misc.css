@@ -1,0 +1,114 @@
+/* Global bits: floating notes, confetti canvas, toast, TV safe margin, corner markers, update pill.
+   Imported last so prefers-reduced-motion wins. */
+@layer components {
+  .bg-notes {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bg-notes span {
+    position: absolute;
+    bottom: -60px;
+    font: 800 40px/1 var(--f-display);
+    color: var(--ink);
+    opacity: 0.07;
+    animation: rise linear infinite;
+  }
+
+  #confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    width: 100%;
+    height: 100%;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(24px, env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 70;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: 800;
+    max-width: calc(100% - 32px);
+    text-align: center;
+  }
+
+  /* "Có bản mới · Cập nhật" — home only (SPEC 3.10) */
+  .update-pill {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right, 0px));
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    z-index: 30;
+    box-shadow: 0 4px 0 var(--ink);
+  }
+
+  /* TV check: 4 red corner markers */
+  .corners {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 80;
+  }
+  .corners i {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    border: 12px solid var(--coral);
+  }
+  .corners i:nth-child(1) {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .corners i:nth-child(2) {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+  .corners i:nth-child(3) {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+  .corners i:nth-child(4) {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  /* "Lề an toàn TV": 4% margin around the whole app */
+  body.safe {
+    padding: 4vh 4vw;
+  }
+  body.safe .corners {
+    inset: 4vh 4vw;
+  }
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(-120vh) rotate(25deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,181 @@
+/* Name stickers grid + states. #prep-grid / #chair-grid ids carry the 1366×768 fit rules (40 cells, 8×5, no scroll). */
+@layer components {
+  .names {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px 12px;
+  }
+  .name {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(64px, 5.6vw, 84px);
+    padding: 8px 10px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    font: 800 clamp(21px, 2vw, 33px) / 1.25 var(--f-display);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .name.called,
+  .name.absent {
+    overflow: visible;
+  }
+  /* laptop trường thường 1366×768: 40 ô (8×5) phải vừa 1 màn hình, không cuộn */
+  #prep-grid .name,
+  #chair-grid .name {
+    min-height: clamp(54px, 8.4vh, 84px);
+  }
+  .grid-wrap {
+    position: relative;
+    padding-top: 34px;
+  }
+  @media (max-height: 820px) {
+    main {
+      padding-bottom: 16px;
+    }
+    .screen {
+      gap: 14px;
+    }
+    .appbar {
+      padding-block: 8px;
+    }
+    .grid-wrap {
+      padding-top: 26px;
+    }
+    .names {
+      gap: 10px;
+    }
+  }
+
+  .name-edit {
+    text-align: center;
+    outline: 4px solid var(--sky);
+    outline-offset: 3px;
+    width: 100%;
+    min-width: 0;
+  }
+  .name.absent {
+    --c: var(--paper) !important;
+    opacity: 0.55;
+    border-style: dashed;
+    box-shadow: none;
+  }
+  .name.absent::after {
+    content: 'vắng';
+    position: absolute;
+    right: -6px;
+    top: -10px;
+    font: 800 14px/1 var(--f-body);
+    background: var(--coral);
+    color: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 3px 6px;
+    transform: rotate(8deg);
+  }
+  .name.called::before {
+    content: '✓';
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    font: 800 16px/1 var(--f-body);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+  }
+  .name.hot {
+    --c: var(--paper);
+    transform: rotate(0) translateY(-8px) scale(1.14);
+    box-shadow:
+      0 0 0 8px var(--sun),
+      0 12px 0 8px var(--ink);
+    z-index: 2;
+  }
+  .name.picked {
+    --c: var(--sun);
+    transform: rotate(0) translateY(-8px) scale(1.18);
+    box-shadow:
+      0 0 0 8px var(--paper),
+      0 0 0 13px var(--ink);
+    z-index: 2;
+  }
+  #chair-grid .name {
+    transition:
+      transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1),
+      opacity 0.45s,
+      filter 0.45s,
+      box-shadow 0.2s,
+      background 0.15s;
+  }
+  #chair-grid .name.hot {
+    transition-duration: 0.08s;
+  }
+  #chair-grid .name.out {
+    opacity: 0.18;
+    filter: grayscale(1);
+    transform: scale(0.84) translateY(8px);
+    box-shadow: none;
+  }
+  /* trail behind the moving highlight */
+  #chair-grid .name.t1 {
+    box-shadow:
+      0 0 0 6px rgba(255, 217, 90, 0.8),
+      0 4px 0 var(--ink);
+  }
+  #chair-grid .name.t2 {
+    box-shadow:
+      0 0 0 5px rgba(255, 217, 90, 0.45),
+      0 4px 0 var(--ink);
+  }
+  #chair-grid .name.t3 {
+    box-shadow:
+      0 0 0 4px rgba(255, 217, 90, 0.2),
+      0 4px 0 var(--ink);
+  }
+  .names.focus .name:not(.hot):not(.picked):not(.t1) {
+    opacity: 0.4;
+  }
+  #chair-grid .name.flash {
+    animation: flash 0.22s steps(1) 3;
+  }
+  #chair-grid .name.bump {
+    animation: bump 0.26s ease-out;
+  }
+  #chair-grid .name.grabbed {
+    --c: var(--paper);
+    transform: translateY(-26px) rotate(-2deg) scale(1.08);
+    z-index: 3;
+    box-shadow:
+      0 0 0 6px var(--sun),
+      0 4px 0 6px var(--ink);
+  }
+  #chair-grid .name.wobble {
+    animation: wob 0.14s linear 5;
+  }
+}
+
+@keyframes flash {
+  50% {
+    background: var(--paper);
+  }
+}
+@keyframes bump {
+  40% {
+    transform: scale(1.05, 0.9) translateY(4px);
+  }
+}
+@keyframes wob {
+  25% {
+    translate: -5px 0;
+  }
+  75% {
+    translate: 5px 0;
+  }
+}

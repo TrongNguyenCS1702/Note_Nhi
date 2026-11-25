@@ -1,0 +1,100 @@
+/* Small controls: pill, btn, kbd, eyebrow, seg. */
+@layer components {
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    padding: 6px 16px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    font: 800 17px/1.2 var(--f-display);
+    white-space: nowrap;
+  }
+  .pill.sun {
+    background: var(--sun);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    padding: 9px 16px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 0 4px 0 var(--ink);
+    font-weight: 800;
+    font-size: 16px;
+    transition:
+      transform 0.1s,
+      box-shadow 0.1s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--ink);
+  }
+  .btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+  .btn.primary {
+    background: var(--sun);
+  }
+  .btn.big {
+    font: 800 24px/1 var(--f-display);
+    padding: 16px 26px;
+    border-radius: 18px;
+    box-shadow: 0 6px 0 var(--ink);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 0 var(--ink);
+  }
+
+  .kbd {
+    display: inline-block;
+    font: 800 12px/1 var(--f-body);
+    letter-spacing: 0.4px;
+    padding: 4px 7px;
+    border-radius: 7px;
+    background: var(--ink);
+    color: var(--paper);
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font: 800 14px/1 var(--f-body);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+  }
+
+  /* segmented control */
+  .seg {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .seg button {
+    border-radius: 14px;
+    padding: 12px 20px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 0 4px 0 var(--ink);
+    font: 800 21px/1 var(--f-display);
+  }
+  .seg button[aria-pressed='true'] {
+    background: var(--sun);
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--ink);
+  }
+}

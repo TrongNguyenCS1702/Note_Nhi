@@ -1,0 +1,125 @@
+/* Trang chủ: suggested class, type box, recent chips, grade rows, footer. */
+@layer components {
+  .suggest {
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    padding: 14px 28px;
+    border-radius: 26px;
+    text-align: left;
+    align-self: flex-start;
+    --rot: -1deg;
+    transform: rotate(-1deg);
+  }
+  .suggest strong {
+    font: 900 clamp(48px, 5vw, 72px) / 1 var(--f-display);
+  }
+  .suggest .sg {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .suggest .sg-l {
+    font: 800 14px/1 var(--f-body);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .suggest small {
+    font-weight: 800;
+    font-size: 16px;
+  }
+
+  .typebox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    color: var(--ink-soft);
+  }
+  .typebox output {
+    min-width: 2.6em;
+    text-align: center;
+    font: 800 34px/1 var(--f-display);
+    color: var(--ink);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    padding: 4px 8px;
+  }
+
+  .recent {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .chips {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font: 800 26px/1 var(--f-display);
+    padding: 12px 24px;
+    border-radius: 999px;
+  }
+
+  .grades {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .grade-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+  .grade-tag {
+    font: 900 22px/1.1 var(--f-display);
+    padding: 12px 14px;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .grade-btns {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .cls-btn {
+    padding: 12px 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+  .cls-btn strong {
+    font: 900 clamp(28px, 3vw, 42px) / 1.1 var(--f-display);
+  }
+  .cls-btn small {
+    font-weight: 800;
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .home-foot {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 3px dashed var(--ink);
+    padding-top: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .grade-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .grade-tag {
+      justify-self: start;
+    }
+    .grade-btns {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

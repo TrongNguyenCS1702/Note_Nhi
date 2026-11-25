@@ -1,0 +1,6 @@
+/* Kiểm tra nhanh trên TV: body panel is `.panel.check-panel`; corner markers live in misc.css (`.corners`). */
+@layer components {
+  .check-panel {
+    max-width: 960px;
+  }
+}

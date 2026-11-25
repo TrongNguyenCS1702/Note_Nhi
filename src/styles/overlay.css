@@ -1,0 +1,61 @@
+/* Overlay scrim + pop-in card + spinning starburst. */
+@layer components {
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: var(--scrim);
+    backdrop-filter: blur(3px);
+    display: grid;
+    place-items: center;
+    overflow: auto;
+    padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
+      max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  }
+  .card {
+    position: relative;
+    background: var(--paper);
+    border: 5px solid var(--ink);
+    border-radius: 36px;
+    box-shadow: 0 12px 0 var(--ink);
+    padding: clamp(24px, 4vw, 48px);
+    max-width: min(1100px, 100%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    text-align: center;
+    animation: popin 0.35s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  }
+  .result-sub {
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-weight: 800;
+    color: var(--ink-soft);
+  }
+  .starburst {
+    position: absolute;
+    inset: -40% -10%;
+    z-index: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .starburst svg {
+    width: min(90vw, 760px);
+    height: auto;
+    animation: spinr 14s linear infinite;
+  }
+}
+
+@keyframes popin {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+@keyframes spinr {
+  to {
+    transform: rotate(360deg);
+  }
+}
