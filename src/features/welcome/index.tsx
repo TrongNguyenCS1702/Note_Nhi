@@ -8,7 +8,7 @@ import { FileDrop } from './FileDrop';
 import { completeOnboarding, hasBackupFolder, importSetupFile } from './importFlow';
 import { promptInstall, useInstallState } from './install';
 
-const INSTALL_HELP = 'Mở menu ⋮ của Chrome/Edge → "Cài đặt Lớp Nhạc Vui" (hoặc bấm biểu tượng cài đặt ở cuối thanh địa chỉ).';
+const INSTALL_HELP = 'Mở menu ⋮ của Chrome/Edge → "Cài đặt Note Nhí" (hoặc bấm biểu tượng cài đặt ở cuối thanh địa chỉ).';
 
 /** Chào mừng (SPEC 3.11): only on a device without data. The teacher drags in the setup package. */
 export function WelcomeScreen() {
@@ -98,7 +98,7 @@ export function WelcomeScreen() {
         <FileDrop accept=".zip,application/zip" onFiles={(f) => void onFiles(f)} disabled={busy}>
           <strong>{busy ? 'Đang nhập gói…' : 'Kéo gói cài đặt vào đây'}</strong>
           <span>
-            hoặc bấm để chọn file <b>lop-nhac-vui-….zip</b> mà người hỗ trợ đã gửi
+            hoặc bấm để chọn file <b>note-nhi-….zip</b> mà người hỗ trợ đã gửi
           </span>
         </FileDrop>
       )}

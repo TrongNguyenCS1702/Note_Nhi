@@ -15,7 +15,7 @@ import type {
   UserPrefsRow,
 } from '@/domain/schemas';
 
-export const DB_NAME = 'lop-nhac-vui';
+export const DB_NAME = 'note-nhi';
 export const DB_VERSION = 1;
 
 /**

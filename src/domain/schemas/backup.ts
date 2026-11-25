@@ -16,7 +16,7 @@ import {
 /** Current data.json schema version (bump together with the Dexie version). */
 export const BACKUP_SCHEMA_VERSION = 1;
 
-export const backupFormatSchema = z.enum(['lnv-backup', 'lnv-setup']);
+export const backupFormatSchema = z.enum(['note-nhi-backup', 'note-nhi-setup']);
 export type BackupFormat = z.infer<typeof backupFormatSchema>;
 
 // In a setup package rows do not carry the helper's ownerId; it is re-assigned on import.
@@ -52,10 +52,10 @@ export const backupDataSchema = z
     if (d.schemaVersion > BACKUP_SCHEMA_VERSION) {
       ctx.addIssue({ code: 'custom', message: 'File được tạo từ phiên bản app mới hơn. Hãy cập nhật app.', path: ['schemaVersion'] });
     }
-    if (d.format === 'lnv-backup' && !d.ownerId) {
+    if (d.format === 'note-nhi-backup' && !d.ownerId) {
       ctx.addIssue({ code: 'custom', message: 'File sao lưu thiếu ownerId', path: ['ownerId'] });
     }
-    if (d.format === 'lnv-setup') {
+    if (d.format === 'note-nhi-setup') {
       for (const t of HISTORY_TABLES) {
         if (d.tables[t].length > 0) {
           ctx.addIssue({ code: 'custom', message: `Gói cài đặt không được chứa ${t}`, path: ['tables', t] });

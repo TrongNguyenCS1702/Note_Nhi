@@ -23,7 +23,7 @@ describe('isBackupDue', () => {
 describe('filesToPrune', () => {
   it('keeps the newest 7 auto backups and ignores other files', () => {
     const names = Array.from({ length: 10 }, (_, i) => autoBackupFileName(day(i + 1)));
-    const pruned = filesToPrune([...names, 'notes.txt', 'lop-nhac-vui-2026-11-01.zip']);
+    const pruned = filesToPrune([...names, 'notes.txt', 'note-nhi-2026-11-01.zip']);
     expect(pruned).toEqual([names[2], names[1], names[0]]);
     expect(filesToPrune(names.slice(0, 7))).toEqual([]);
   });

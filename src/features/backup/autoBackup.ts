@@ -6,12 +6,12 @@ import { exportZipBlob, getBackupDirHandle, getBackupReminderAt, getLastBackupAt
 
 export const BACKUP_KEEP = 7;
 export const REMINDER_EVERY_MS = 14 * 24 * 60 * 60 * 1000;
-const AUTO_NAME = /^lop-nhac-vui-backup-(\d{4}-\d{2}-\d{2})\.zip$/;
+const AUTO_NAME = /^note-nhi-backup-(\d{4}-\d{2}-\d{2})\.zip$/;
 
 // ---------------------------------------------------------------- pure logic
 
-/** `lop-nhac-vui-backup-YYYY-MM-DD.zip` (local date). */
-export const autoBackupFileName = (now: number): string => `lop-nhac-vui-backup-${localDateKey(now)}.zip`;
+/** `note-nhi-backup-YYYY-MM-DD.zip` (local date). */
+export const autoBackupFileName = (now: number): string => `note-nhi-backup-${localDateKey(now)}.zip`;
 
 /** At most one automatic backup per local calendar day. */
 export function isBackupDue(lastBackupAt: number | undefined, now: number): boolean {
@@ -86,7 +86,7 @@ export async function chooseBackupFolder(): Promise<string | null> {
   const pick = picker();
   if (!pick) return null;
   try {
-    const handle = await pick({ id: 'lnv-backup', mode: 'readwrite', startIn: 'documents' });
+    const handle = await pick({ id: 'note-nhi-backup', mode: 'readwrite', startIn: 'documents' });
     await setBackupDirHandle(handle);
     return handle.name;
   } catch {
@@ -127,11 +127,11 @@ const defaultDeps: AutoBackupDeps = {
   getDir: async () => (await getBackupDirHandle()) as BackupDir | undefined,
   getLastBackupAt,
   setLastBackupAt: (now) => setLastBackupAt(now),
-  makeBlob: () => exportZipBlob({ format: 'lnv-backup', includeMusic: false }),
+  makeBlob: () => exportZipBlob({ format: 'note-nhi-backup', includeMusic: false }),
 };
 
 /**
- * Write `lop-nhac-vui-backup-YYYY-MM-DD.zip` into the chosen folder if one exists, permission is
+ * Write `note-nhi-backup-YYYY-MM-DD.zip` into the chosen folder if one exists, permission is
  * already granted (never prompts) and no backup was made today. Keeps the newest 7.
  */
 export async function runAutoBackupIfDue(now: number = Date.now(), deps: AutoBackupDeps = defaultDeps): Promise<AutoBackupResult> {
@@ -154,7 +154,7 @@ export async function backupNow(now: number = Date.now()): Promise<'written' | '
   const dir = (await getBackupDirHandle()) as BackupDir | undefined;
   if (!dir) return 'no-folder';
   if ((await permissionOf(dir)) !== 'granted' && !(await requestBackupPermission())) return 'no-permission';
-  await writeBackupTo(dir, await exportZipBlob({ format: 'lnv-backup', includeMusic: false }), now);
+  await writeBackupTo(dir, await exportZipBlob({ format: 'note-nhi-backup', includeMusic: false }), now);
   await setLastBackupAt(now);
   return 'written';
 }

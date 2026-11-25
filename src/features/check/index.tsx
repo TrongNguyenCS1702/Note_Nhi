@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useScreenKeys } from '@/app/keyboard';
 import { useAppStore } from '@/app/store';
+import { routeAfterCheck } from '@/features/home';
 import { fromCallback } from 'xstate';
 import { audio, dbfsToPercent, MicError } from '@/audio';
 import { getTrackBlob, listTracks, logError, setTvCheckDoneAt, updateDevicePrefs } from '@/db';
@@ -89,8 +90,9 @@ export function CheckScreen() {
             void setTvCheckDoneAt().catch((e: unknown) => logError({ screen: 'check', message: String(e) }));
             toast(skipped ? 'Đã bỏ qua. Chạy lại được trong Cài đặt' : 'Xong phần kiểm tra! Lần sau không hiện lại nữa');
             if (!skipped) audio.sfx('tada');
-            // TODO(home): replace with the home feature's routeAfterCheck() once merged.
-            useAppStore.getState().go('prep');
+            const { classId, go } = useAppStore.getState();
+            if (classId) void routeAfterCheck(classId);
+            else go('home');
           },
         },
         actors: { mic: micActor },

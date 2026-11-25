@@ -391,7 +391,7 @@ function BackupSection() {
   const onFile = async (f: File) => {
     try {
       const { data } = await readPackage(f);
-      if (data.format === 'lnv-backup') setPending(f);
+      if (data.format === 'note-nhi-backup') setPending(f);
       else await doImport(f);
     } catch (e) {
       toast(e instanceof Error ? e.message : 'File này không đọc được');
@@ -437,8 +437,8 @@ function BackupSection() {
           onClick={() =>
             void run(async () =>
               download(
-                await exportZipBlob({ format: 'lnv-backup', includeMusic: withMusic }),
-                backupFileName('lnv-backup', Date.now(), { dated: true }),
+                await exportZipBlob({ format: 'note-nhi-backup', includeMusic: withMusic }),
+                backupFileName('note-nhi-backup', Date.now(), { dated: true }),
               ),
             )
           }
@@ -448,7 +448,7 @@ function BackupSection() {
         <Button
           disabled={busy}
           onClick={() =>
-            void run(async () => download(await exportZipBlob({ format: 'lnv-setup' }), backupFileName('lnv-setup')))
+            void run(async () => download(await exportZipBlob({ format: 'note-nhi-setup' }), backupFileName('note-nhi-setup')))
           }
         >
           Xuất gói cài đặt

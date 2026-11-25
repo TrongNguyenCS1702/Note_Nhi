@@ -22,7 +22,7 @@ export function AppBar({ classLabel }: AppBarProps) {
       <div className="brand" role="heading" aria-level={1}>
         <Mascot className="dot" mood="idle" size={42} />
         <span>
-          Lớp Nhạc <em>Vui</em>
+          Note <em>Nhí</em>
         </span>
       </div>
       <div className="appbar-right">
