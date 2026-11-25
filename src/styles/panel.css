@@ -1,0 +1,29 @@
+/* Setup panel (silence / wait setup, TV check). */
+@layer components {
+  .panel {
+    background: var(--paper);
+    border: var(--bw) solid var(--ink);
+    border-radius: 28px;
+    box-shadow: 0 8px 0 var(--ink);
+    padding: clamp(20px, 3vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    min-width: 0;
+  }
+  .setup-wrap {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .setup-wrap .panel {
+    flex: 1 1 520px;
+    max-width: 780px;
+  }
+  .setup-side {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+}

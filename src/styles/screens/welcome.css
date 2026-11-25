@@ -1,0 +1,72 @@
+/* Chào mừng (first run): package drop zone + 3 steps (.step.done when finished). */
+@layer components {
+  .drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 190px;
+    padding: 28px;
+    border-style: dashed;
+    border-width: 4px;
+    border-radius: 30px;
+    --c: var(--paper);
+    text-align: center;
+  }
+  .drop strong {
+    font: 900 clamp(30px, 3.4vw, 48px) / 1.1 var(--f-display);
+  }
+  .drop span {
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    padding: 18px 20px;
+    border-radius: 22px;
+  }
+  .step .k {
+    flex: none;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    font: 800 28px/1 var(--f-display);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+  }
+  .step strong {
+    display: block;
+    font: 800 22px/1.15 var(--f-display);
+  }
+  .step small {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .step.done {
+    --c: var(--mint);
+  }
+  .step.done .k {
+    font-size: 0;
+  }
+  .step.done .k::after {
+    content: '✓';
+    font-size: 28px;
+  }
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+}
