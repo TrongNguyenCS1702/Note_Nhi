@@ -45,14 +45,21 @@ describe('ChairsScreen', () => {
 
   it('spins: logs the pick at once, reveals the result, R marks it skipped', async () => {
     const { classId, audio } = await setup();
-    press(' ');
-    expect(screen.getByText('Lần này chơi kiểu gì đây ta?')).toBeTruthy();
+    // Live queries (present list, call logs) settle over a few renders; retry until the spin starts.
+    // SPACE is ignored during the intro, so extra presses are harmless.
+    await waitFor(
+      () => {
+        press(' ');
+        expect(screen.getByText('Lần này chơi kiểu gì đây ta?')).toBeTruthy();
+      },
+      { timeout: 5000 },
+    );
     await waitFor(async () => expect(await callLogsForClass(classId)).toHaveLength(1), { timeout: 5000 });
     // the ✓ of the just-logged pick must not appear during the spin
     expect(document.querySelectorAll('#chair-grid .name.called')).toHaveLength(0);
 
     await wait(INTRO_MS + 50);
-    expect(screen.getByRole('button', { name: /Dừng nhạc/ })).toBeTruthy();
+    expect(await screen.findByRole('button', { name: /Dừng nhạc/ }, { timeout: INTRO_MS + 5000 })).toBeTruthy();
     expect(audio.callsOf('startMusic')).toHaveLength(1);
     press(' ');
     expect(screen.getByRole('button', { name: /Tua nhanh/ })).toBeTruthy();
